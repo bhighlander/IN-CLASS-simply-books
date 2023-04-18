@@ -1,33 +1,28 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
-// import { useAuth } from '../utils/context/authContext';
+import { Card, ListGroup } from 'react-bootstrap';
 
-export default function User({
-  photoURL, displayName, email, lastSignInTime,
-}) {
+export default function User({ userObject }) {
   return (
-    <div className="user">
-      {photoURL && <Image src={photoURL} alt={displayName} />}
-      <div className="user-info">
-        <h2>{displayName}</h2>
-        <p>{email}</p>
-        <p>Last Login: {lastSignInTime}</p>
-      </div>
-    </div>
+    <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={userObject.photoURL} />
+      <Card.Body>
+        <Card.Title>{userObject.displayName}</Card.Title>
+        <Card.Text>{userObject.email}</Card.Text>
+      </Card.Body>
+      <ListGroup className="list-group-flush">
+        <ListGroup.Item>Last Sign In: {userObject.metadata.lastSignInTime}</ListGroup.Item>
+      </ListGroup>
+    </Card>
   );
 }
 
 User.propTypes = {
-  photoURL: PropTypes.string,
-  displayName: PropTypes.string,
-  email: PropTypes.string,
-  lastSignInTime: PropTypes.string,
-};
-
-User.defaultProps = {
-  photoURL: '',
-  displayName: '',
-  email: '',
-  lastSignInTime: '',
+  userObject: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoURL: PropTypes.string,
+    metadata: PropTypes.shape({
+      lastSignInTime: PropTypes.string,
+    }),
+  }).isRequired,
 };
