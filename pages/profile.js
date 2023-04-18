@@ -6,8 +6,7 @@ export default function Profile() {
   const { user } = useAuth();
   return (
     <>
-      <User image={user.photoURL} name={user.displayName} email={user.email} lastLogin={user.metadata.lastSignInTime} />
-      <button type="button">Signout</button>
+      <User userObject={user} />
     </>
   );
 }
